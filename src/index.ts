@@ -1,6 +1,9 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { wait } from './wait.js'
 
 // main
@@ -8,6 +11,13 @@ import { wait } from './wait.js'
     try {
         // console.log('github.context:', github.context)
         // console.log('process.env:', process.env)
+
+        const __filename = fileURLToPath(import.meta.url)
+        core.debug(`__filename: ${__filename}`)
+        const __dirname = path.dirname(__filename)
+        core.debug(`__dirname: ${__dirname}`)
+        const src = path.resolve(__dirname, '../src')
+        console.log(`src: ${src}`)
 
         const ms: string = core.getInput('milliseconds', { required: true })
         core.info(`ms: ${ms}`)

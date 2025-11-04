@@ -29,6 +29,13 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v5
 
+      - name: "Debug CTX github"
+        if: ${{ !github.event.act }}
+        continue-on-error: true
+        env:
+          GITHUB_CTX: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CTX"
+
       - name: "Test Local Action"
         id: test
         uses: ./
@@ -45,6 +52,6 @@ jobs:
 
       - name: "Schedule Failure Notification"
         if: ${{ failure() && github.event_name == 'schedule' }}
-        uses: sarisia/actions-status-discord@v1
+        uses: sarisia/actions-status-discord@11a0bfe3b50977e38aa2bd4a4ebd296415e83c19 # v1.15.4
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
