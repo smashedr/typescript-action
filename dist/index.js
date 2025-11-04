@@ -27,6 +27,8 @@ import require$$6 from 'string_decoder';
 import require$$0$9 from 'diagnostics_channel';
 import require$$2$3 from 'child_process';
 import require$$6$1 from 'timers';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -31252,6 +31254,12 @@ async function wait(milliseconds) {
 
 (async () => {
     try {
+        const __filename = fileURLToPath(import.meta.url);
+        coreExports.debug(`__filename: ${__filename}`);
+        const __dirname = path.dirname(__filename);
+        coreExports.debug(`__dirname: ${__dirname}`);
+        const src = path.resolve(__dirname, '../src');
+        console.log(`src: ${src}`);
         const ms = coreExports.getInput('milliseconds', { required: true });
         coreExports.info(`ms: ${ms}`);
         const { owner, repo } = githubExports.context.repo;
