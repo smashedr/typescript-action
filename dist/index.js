@@ -1753,7 +1753,7 @@ function requireTimers () {
 	return timers;
 }
 
-var main = {exports: {}};
+var main$1 = {exports: {}};
 
 var sbmh;
 var hasRequiredSbmh;
@@ -3291,7 +3291,7 @@ function requireUrlencoded () {
 var hasRequiredMain;
 
 function requireMain () {
-	if (hasRequiredMain) return main.exports;
+	if (hasRequiredMain) return main$1.exports;
 	hasRequiredMain = 1;
 
 	const WritableStream = require$$0$7.Writable;
@@ -3372,12 +3372,12 @@ function requireMain () {
 	  this._parser.write(chunk, cb);
 	};
 
-	main.exports = Busboy;
-	main.exports.default = Busboy;
-	main.exports.Busboy = Busboy;
+	main$1.exports = Busboy;
+	main$1.exports.default = Busboy;
+	main$1.exports.Busboy = Busboy;
 
-	main.exports.Dicer = Dicer;
-	return main.exports;
+	main$1.exports.Dicer = Dicer;
+	return main$1.exports;
 }
 
 var constants$3;
@@ -31252,28 +31252,33 @@ async function wait(milliseconds) {
     });
 }
 
-(async () => {
-    try {
-        const __filename = fileURLToPath(import.meta.url);
-        coreExports.debug(`__filename: ${__filename}`);
-        const __dirname = path.dirname(__filename);
-        coreExports.debug(`__dirname: ${__dirname}`);
-        const src = path.resolve(__dirname, '../src');
-        console.log(`src: ${src}`);
-        const ms = coreExports.getInput('milliseconds', { required: true });
-        coreExports.info(`ms: ${ms}`);
-        const { owner, repo } = githubExports.context.repo;
-        console.log('owner:', owner);
-        console.log('repo:', repo);
-        coreExports.info(new Date().toTimeString());
-        const result = await wait(parseInt(ms, 10));
-        console.log('result:', result);
-        coreExports.setOutput('time', result);
-        coreExports.info(`\u001b[32;1mFinished Success`);
-    }
-    catch (e) {
-        console.log(e);
-        if (e instanceof Error)
-            coreExports.setFailed(e.message);
-    }
-})();
+async function main() {
+    const version = process.env.GITHUB_ACTION_REF
+        ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
+        : 'Source';
+    coreExports.info(`🏳️ Starting Test Action - ${version}`);
+    const ms = coreExports.getInput('milliseconds', { required: true });
+    coreExports.info(`ms: ${ms}`);
+    const __filename = fileURLToPath(import.meta.url);
+    coreExports.debug(`__filename: ${__filename}`);
+    const __dirname = path.dirname(__filename);
+    coreExports.debug(`__dirname: ${__dirname}`);
+    const src = path.resolve(__dirname, '../src');
+    console.log(`src: ${src}`);
+    const { owner, repo } = githubExports.context.repo;
+    console.log('owner:', owner);
+    console.log('repo:', repo);
+    coreExports.info(new Date().toTimeString());
+    const result = await wait(parseInt(ms, 10));
+    console.log('result:', result);
+    coreExports.setOutput('time', result);
+    coreExports.info(`\u001b[32;1mFinished Success`);
+}
+try {
+    await main();
+}
+catch (e) {
+    console.log(e);
+    if (e instanceof Error)
+        coreExports.setFailed(e.message);
+}
