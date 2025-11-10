@@ -31255,7 +31255,7 @@ async function wait(milliseconds) {
 async function main() {
     const version = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
-        : 'Source';
+        : '\u001b[33;1mSource';
     coreExports.info(`🏳️ Starting Test Action - ${version}`);
     const ms = coreExports.getInput('milliseconds', { required: true });
     coreExports.info(`ms: ${ms}`);

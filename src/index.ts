@@ -9,7 +9,7 @@ import { wait } from './wait.js'
 async function main() {
     const version = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
-        : 'Source'
+        : '\u001b[33;1mSource'
     core.info(`🏳️ Starting Test Action - ${version}`)
 
     // // Debug
