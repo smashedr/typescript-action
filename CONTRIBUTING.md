@@ -54,7 +54,7 @@ For other Action types, see:
 
 - JavaScript: https://github.com/smashedr/javascript-action
 - TypeScript: https://github.com/smashedr/typescript-action
-- Dockerfile Python: https://github.com/smashedr/test-action-py
+- Dockerfile Python: https://github.com/smashedr/py-test-action
 - Dockerfile Python UV: https://github.com/smashedr/test-action-uv
 - Docker Image Python: https://github.com/smashedr/docker-test-action
 

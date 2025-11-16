@@ -18,8 +18,9 @@
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-72a5f2?logo=kofi&label=support)](https://ko-fi.com/cssnr)
 
-# TypeScript Test Action
+# TypeScript Action Template
 
+- [Features](#Features)
 - [Inputs](#Inputs)
 - [Outputs](#Outputs)
 - [Tags](#Tags)
@@ -27,13 +28,17 @@
 - [Contributing](#Contributing)
 - [Development](#Development)
 
-TypeScript Test Action Template.
+TypeScript Action Template using Rollup.
 
 - JavaScript: https://github.com/smashedr/javascript-action
 - TypeScript: https://github.com/smashedr/typescript-action
-- Dockerfile Python: https://github.com/smashedr/test-action-py
+- Dockerfile Python: https://github.com/smashedr/py-test-action
 - Dockerfile Python UV: https://github.com/smashedr/test-action-uv
 - Docker Image Python: https://github.com/smashedr/docker-test-action
+
+## Features
+
+Basic action template.
 
 ## Inputs
 
@@ -149,9 +154,10 @@ These actions are not published on the Marketplace, but may be useful.
 These are basic action templates that I use for creating new actions.
 
 - [javascript-action](https://github.com/smashedr/javascript-action?tab=readme-ov-file#readme) - JavaScript
-- [py-test-action](https://github.com/smashedr/py-test-action?tab=readme-ov-file#readme) - Python
 - [typescript-action](https://github.com/smashedr/typescript-action?tab=readme-ov-file#readme) - TypeScript
-- [docker-test-action](https://github.com/smashedr/docker-test-action?tab=readme-ov-file#readme) - Docker Image
+- [py-test-action](https://github.com/smashedr/py-test-action?tab=readme-ov-file#readme) - Dockerfile Python
+- [test-action-uv](https://github.com/smashedr/test-action-uv?tab=readme-ov-file#readme) - Dockerfile Python UV
+- [docker-test-action](https://github.com/smashedr/docker-test-action?tab=readme-ov-file#readme) - Docker Image Python
 
 Note: The `docker-test-action` builds, runs and pushes images to [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
