@@ -1,3 +1,3 @@
 # Template
 
-- https://github.com/smashedr/js-test-action/blob/master/TEMPLATE.md
+- https://github.com/smashedr/javascript-action/blob/master/TEMPLATE.md

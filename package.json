@@ -1,5 +1,5 @@
 {
-  "name": "ts-test-action",
+  "name": "typescript-action",
   "private": true,
   "type": "module",
   "main": "dist/index.js",

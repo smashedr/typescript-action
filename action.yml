@@ -1,5 +1,7 @@
-name: "TypeScript Test Action"
-description: "TypeScript Test Action"
+# https://www.schemastore.org/github-action.json
+name: "TypeScript Action"
+# Description must be less than 125 characters.
+description: "TypeScript Action Template"
 author: "Shane"
 branding:
   icon: "type"
