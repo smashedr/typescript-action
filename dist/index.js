@@ -31298,18 +31298,20 @@ async function main() {
     const __dirname = path.dirname(__filename);
     coreExports.debug(`__dirname: ${__dirname}`);
     const src = path.resolve(__dirname, '../src');
-    console.log(`src: ${src}`);
+    coreExports.debug(`src: ${src}`);
     const inputs = {
-        tag: coreExports.getInput('tag'),
+        tag: coreExports.getInput('tag', { required: true }),
         summary: coreExports.getBooleanInput('summary'),
         token: coreExports.getInput('token'),
     };
+    coreExports.startGroup('Inputs');
     console.log(inputs);
+    coreExports.endGroup();
     const sha = process.env.GITHUB_SHA ?? '';
-    coreExports.info(`Target SHA: \u001b[33;1m${sha}`);
+    coreExports.info(`Target SHA: \u001b[36;1m${sha}`);
     if (!sha)
         return coreExports.setFailed('Unknown GITHUB_SHA');
-    coreExports.info(`Target Tag: \u001b[33;1m${inputs.tag}`);
+    coreExports.info(`Target Tag: \u001b[36;1m${inputs.tag}`);
     const api = new GitHub(inputs.token);
     coreExports.startGroup(`Processing tag: "${inputs.tag}"`);
     let result;
@@ -31332,7 +31334,7 @@ async function main() {
         result = 'Created';
     }
     coreExports.endGroup();
-    console.log('result:', result);
+    coreExports.info(`Result: \u001b[32;1m${result}`);
     if (inputs.summary) {
         coreExports.info('📝 Writing Job Summary');
         try {
