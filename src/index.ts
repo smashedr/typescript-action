@@ -24,21 +24,23 @@ async function main() {
     const __dirname = path.dirname(__filename)
     core.debug(`__dirname: ${__dirname}`)
     const src = path.resolve(__dirname, '../src')
-    console.log(`src: ${src}`)
+    core.debug(`src: ${src}`)
 
     // Inputs
     const inputs = {
-        tag: core.getInput('tag'),
+        tag: core.getInput('tag', { required: true }),
         summary: core.getBooleanInput('summary'),
         token: core.getInput('token'),
     } as Inputs
+    core.startGroup('Inputs')
     console.log(inputs)
+    core.endGroup() // Inputs
 
     // Variables
     const sha = process.env.GITHUB_SHA ?? ''
-    core.info(`Target SHA: \u001b[33;1m${sha}`)
+    core.info(`Target SHA: \u001b[36;1m${sha}`)
     if (!sha) return core.setFailed('Unknown GITHUB_SHA')
-    core.info(`Target Tag: \u001b[33;1m${inputs.tag}`)
+    core.info(`Target Tag: \u001b[36;1m${inputs.tag}`)
     const api = new GitHub(inputs.token)
 
     // Processing
@@ -63,7 +65,7 @@ async function main() {
     }
     core.endGroup() // Processing
 
-    console.log('result:', result)
+    core.info(`Result: \u001b[32;1m${result}`)
 
     // Summary
     if (inputs.summary) {
