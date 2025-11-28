@@ -3,18 +3,24 @@ name: "TypeScript Action"
 # Description must be less than 125 characters.
 description: "TypeScript Action Template"
 author: "Shane"
+
 branding:
   icon: "type"
   color: "green"
 
 inputs:
-  milliseconds:
-    description: "Your input description here"
-    default: "1000"
+  tag:
+    description: "Tag to Create or Update"
+  summary:
+    description: "Add Summary to Job"
+    default: "true"
+  token:
+    description: "GitHub Token"
+    default: ${{ github.token }}
 
 outputs:
-  time:
-    description: "Your output description here"
+  sha:
+    description: "Tag Hash"
 
 runs:
   using: "node24"

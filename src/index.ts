@@ -1,13 +1,11 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
-
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-
-import { wait } from './wait.js'
+import { GitHub } from './github.js'
+import { Inputs } from './types.js'
 
 async function main() {
-    const version = process.env.GITHUB_ACTION_REF
+    const version: string = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource'
     core.info(`🏳️ Starting Test Action - ${version}`)
@@ -20,32 +18,92 @@ async function main() {
     // console.log(process.env)
     // core.endGroup() // Debug process.env
 
-    // Inputs
-    const ms: string = core.getInput('milliseconds', { required: true })
-    core.info(`ms: ${ms}`)
-
-    // Path
+    // Debug Path
     const __filename = fileURLToPath(import.meta.url)
     core.debug(`__filename: ${__filename}`)
     const __dirname = path.dirname(__filename)
     core.debug(`__dirname: ${__dirname}`)
     const src = path.resolve(__dirname, '../src')
-    console.log(`src: ${src}`)
+    core.debug(`src: ${src}`)
 
-    // Example GitHub Context
-    const { owner, repo } = github.context.repo
-    console.log('owner:', owner)
-    console.log('repo:', repo)
+    // Inputs
+    const inputs = {
+        tag: core.getInput('tag', { required: true }),
+        summary: core.getBooleanInput('summary'),
+        token: core.getInput('token'),
+    } as Inputs
+    core.startGroup('Inputs')
+    console.log(inputs)
+    core.endGroup() // Inputs
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.info(new Date().toTimeString())
-    const result: string = await wait(parseInt(ms, 10))
-    console.log('result:', result)
+    // Variables
+    const sha = process.env.GITHUB_SHA ?? ''
+    core.info(`SHA: \u001b[35;1m${sha}`)
+    if (!sha) return core.setFailed('Unknown GITHUB_SHA')
+    core.info(`TAG: \u001b[35;1m${inputs.tag}`)
+    const api = new GitHub(inputs.token)
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', result)
+    // Processing
+    core.startGroup(`Processing tag: "${inputs.tag}"`)
+    let result: string
+    const reference = await api.getRef(inputs.tag)
+    // console.log('reference:', reference)
+    if (reference) {
+        core.info(`current sha: ${reference.object.sha}`)
+        if (sha === reference.object.sha) {
+            core.info(`\u001b[34mTag "${inputs.tag}" already points to: ${sha}`)
+            result = 'Not Changed'
+        } else {
+            core.info(`\u001b[33mUpdating tag "${inputs.tag}" to: ${sha}`)
+            await api.updateRef(inputs.tag, sha, true)
+            result = 'Updated'
+        }
+    } else {
+        core.info(`\u001b[32mCreating new tag "${inputs.tag}" to: ${sha}`)
+        await api.createRef(inputs.tag, sha)
+        result = 'Created'
+    }
+    core.endGroup() // Processing
+
+    core.info(`Result: \u001b[36;1m${result}`)
+
+    // Summary
+    if (inputs.summary) {
+        core.info('📝 Writing Job Summary')
+        try {
+            await addSummary(inputs, result, sha)
+        } catch (e) {
+            console.log(e)
+            if (e instanceof Error) core.error(`Error writing Job Summary ${e.message}`)
+        }
+    }
+
+    // Outputs
+    core.setOutput('sha', sha)
 
     core.info(`\u001b[32;1mFinished Success`)
+}
+
+async function addSummary(inputs: Inputs, result: string, sha: string) {
+    core.summary.addRaw('## JavaScript Action\n')
+
+    const url = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/releases/tag/${inputs.tag}`
+    core.summary.addRaw(`${result}: [${inputs.tag}](${url}) :arrow_right: \`${sha}\`\n`)
+
+    const cleanInputs = Object.fromEntries(
+        Object.entries(inputs).filter(([key]) => key !== 'token')
+    )
+    const yaml = Object.entries(cleanInputs)
+        .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
+        .join('\n')
+    core.summary.addRaw('<details><summary>Inputs</summary>')
+    core.summary.addCodeBlock(yaml, 'yaml')
+    core.summary.addRaw('</details>\n')
+
+    const text = 'View Documentation, Report Issues or Request Features'
+    const link = 'https://github.com/smashedr/javascript-action'
+    core.summary.addRaw(`\n[${text}](${link}?tab=readme-ov-file#readme)\n\n---`)
+    await core.summary.write()
 }
 
 try {

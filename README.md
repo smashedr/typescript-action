@@ -20,13 +20,16 @@
 
 # TypeScript Action Template
 
+<a title="TypeScript Action Template" href="https://actions.cssnr.com/" target="_blank">
+<img alt="TypeScript Action Template" align="right" width="128" height="auto" src="https://raw.githubusercontent.com/smashedr/typescript-action/refs/heads/master/.github/assets/logo.svg"></a>
+
 - [Features](#Features)
 - [Inputs](#Inputs)
+  - [Permissions](#Permissions)
 - [Outputs](#Outputs)
 - [Tags](#Tags)
 - [Support](#Support)
 - [Contributing](#Contributing)
-- [Development](#Development)
 
 TypeScript Action Template using Rollup.
 
@@ -38,19 +41,23 @@ TypeScript Action Template using Rollup.
 
 ## Features
 
-Basic action template.
+This action creates or updates the provided `tag` to the `sha` has that triggered the workflow.
+
+This includes inputs, outputs, job summary, and automatic token authentication.
 
 ## Inputs
 
-| Input        | Req. | Default | Input&nbsp;Description |
-| :----------- | :--: | :------ | :--------------------- |
-| milliseconds |  -   | 1000    | Milliseconds to wait   |
+| Input   | Req. | Default        | Input&nbsp;Description  |
+| :------ | :--: | :------------- | :---------------------- |
+| tag     |  -   | `test`         | Tag to Create or Update |
+| summary |  -   | `true`         | Add Summary to Job      |
+| token   |  -   | `github.token` | Only for PAT            |
 
 ```yaml
 - name: 'TS Test Action'
   uses: smashedr/typescript-action@master
   with:
-    milliseconds: 2000
+    tag: test
 ```
 
 ## Outputs
@@ -58,18 +65,30 @@ Basic action template.
 | Output | Description    |
 | :----- | :------------- |
 | time   | Resulting Time |
+| sha    | Tag Hash       |
 
 ```yaml
 - name: 'TS Test Action'
   id: test
   uses: smashedr/typescript-action@master
   with:
-    milliseconds: 2000
+    tag: test
 
 - name: 'Echo Output'
   run: |
-    echo '${{ steps.test.outputs.time }}'
+    echo "sha: '${{ steps.test.outputs.sha }}'"
 ```
+
+### Permissions
+
+This action requires the following permissions:
+
+```yaml
+permissions:
+  contents: write
+```
+
+Permissions documentation for [Workflows](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token) and [Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication).
 
 ## Tags
 
@@ -170,7 +189,3 @@ Note: The `docker-test-action` builds, runs and pushes images to [GitHub Contain
 </details>
 
 For a full list of current projects visit: [https://cssnr.github.io/](https://cssnr.github.io/)
-
-# Development
-
-Development instructions have been moved to the local [CONTRIBUTING.md](#contributing-ov-file).
