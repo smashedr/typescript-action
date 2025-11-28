@@ -20,6 +20,9 @@
 
 # TypeScript Action Template
 
+<a title="TypeScript Action Template" href="https://actions.cssnr.com/" target="_blank">
+<img alt="TypeScript Action Template" align="right" width="128" height="auto" src="https://raw.githubusercontent.com/smashedr/typescript-action/refs/heads/master/.github/assets/logo.svg"></a>
+
 - [Features](#Features)
 - [Inputs](#Inputs)
   - [Permissions](#Permissions)
