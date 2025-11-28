@@ -13,7 +13,7 @@ export class GitHub {
     }
 
     async getRef(tag: string) {
-        console.debug(`getRef: tags/${tag}`)
+        console.log(`getRef: tags/${tag}`)
         try {
             const result = await this.octokit.rest.git.getRef({
                 ...this.repo,
@@ -32,7 +32,7 @@ export class GitHub {
     }
 
     async createRef(tag: string, sha: string) {
-        console.debug(`createRef: refs/tags/${tag}`, sha)
+        console.log(`createRef: refs/tags/${tag}`, sha)
         return this.octokit.rest.git.createRef({
             ...this.repo,
             ref: `refs/tags/${tag}`,
@@ -41,7 +41,7 @@ export class GitHub {
     }
 
     async updateRef(tag: string, sha: string, force = false) {
-        console.debug(`updateRef: tags/${tag}`, sha, force)
+        console.log(`updateRef: tags/${tag}`, sha, force)
         return this.octokit.rest.git.updateRef({
             ...this.repo,
             ref: `tags/${tag}`,

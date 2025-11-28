@@ -38,9 +38,9 @@ async function main() {
 
     // Variables
     const sha = process.env.GITHUB_SHA ?? ''
-    core.info(`Target SHA: \u001b[36;1m${sha}`)
+    core.info(`SHA: \u001b[35;1m${sha}`)
     if (!sha) return core.setFailed('Unknown GITHUB_SHA')
-    core.info(`Target Tag: \u001b[36;1m${inputs.tag}`)
+    core.info(`TAG: \u001b[35;1m${inputs.tag}`)
     const api = new GitHub(inputs.token)
 
     // Processing
@@ -51,21 +51,21 @@ async function main() {
     if (reference) {
         core.info(`current sha: ${reference.object.sha}`)
         if (sha === reference.object.sha) {
-            core.info(`\u001b[36mTag "${inputs.tag}" already points to: ${sha}`)
+            core.info(`\u001b[34mTag "${inputs.tag}" already points to: ${sha}`)
             result = 'Not Changed'
         } else {
-            core.info(`\u001b[35mUpdating tag "${inputs.tag}" to: ${sha}`)
+            core.info(`\u001b[33mUpdating tag "${inputs.tag}" to: ${sha}`)
             await api.updateRef(inputs.tag, sha, true)
             result = 'Updated'
         }
     } else {
-        core.info(`\u001b[33mCreating new tag "${inputs.tag}" to: ${sha}`)
+        core.info(`\u001b[32mCreating new tag "${inputs.tag}" to: ${sha}`)
         await api.createRef(inputs.tag, sha)
         result = 'Created'
     }
     core.endGroup() // Processing
 
-    core.info(`Result: \u001b[32;1m${result}`)
+    core.info(`Result: \u001b[36;1m${result}`)
 
     // Summary
     if (inputs.summary) {

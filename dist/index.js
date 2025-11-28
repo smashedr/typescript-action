@@ -31251,7 +31251,7 @@ class GitHub {
         this.octokit = githubExports.getOctokit(token);
     }
     async getRef(tag) {
-        console.debug(`getRef: tags/${tag}`);
+        console.log(`getRef: tags/${tag}`);
         try {
             const result = await this.octokit.rest.git.getRef({
                 ...this.repo,
@@ -31270,7 +31270,7 @@ class GitHub {
         }
     }
     async createRef(tag, sha) {
-        console.debug(`createRef: refs/tags/${tag}`, sha);
+        console.log(`createRef: refs/tags/${tag}`, sha);
         return this.octokit.rest.git.createRef({
             ...this.repo,
             ref: `refs/tags/${tag}`,
@@ -31278,7 +31278,7 @@ class GitHub {
         });
     }
     async updateRef(tag, sha, force = false) {
-        console.debug(`updateRef: tags/${tag}`, sha, force);
+        console.log(`updateRef: tags/${tag}`, sha, force);
         return this.octokit.rest.git.updateRef({
             ...this.repo,
             ref: `tags/${tag}`,
@@ -31308,10 +31308,10 @@ async function main() {
     console.log(inputs);
     coreExports.endGroup();
     const sha = process.env.GITHUB_SHA ?? '';
-    coreExports.info(`Target SHA: \u001b[36;1m${sha}`);
+    coreExports.info(`SHA: \u001b[35;1m${sha}`);
     if (!sha)
         return coreExports.setFailed('Unknown GITHUB_SHA');
-    coreExports.info(`Target Tag: \u001b[36;1m${inputs.tag}`);
+    coreExports.info(`TAG: \u001b[35;1m${inputs.tag}`);
     const api = new GitHub(inputs.token);
     coreExports.startGroup(`Processing tag: "${inputs.tag}"`);
     let result;
@@ -31319,22 +31319,22 @@ async function main() {
     if (reference) {
         coreExports.info(`current sha: ${reference.object.sha}`);
         if (sha === reference.object.sha) {
-            coreExports.info(`\u001b[36mTag "${inputs.tag}" already points to: ${sha}`);
+            coreExports.info(`\u001b[34mTag "${inputs.tag}" already points to: ${sha}`);
             result = 'Not Changed';
         }
         else {
-            coreExports.info(`\u001b[35mUpdating tag "${inputs.tag}" to: ${sha}`);
+            coreExports.info(`\u001b[33mUpdating tag "${inputs.tag}" to: ${sha}`);
             await api.updateRef(inputs.tag, sha, true);
             result = 'Updated';
         }
     }
     else {
-        coreExports.info(`\u001b[33mCreating new tag "${inputs.tag}" to: ${sha}`);
+        coreExports.info(`\u001b[32mCreating new tag "${inputs.tag}" to: ${sha}`);
         await api.createRef(inputs.tag, sha);
         result = 'Created';
     }
     coreExports.endGroup();
-    coreExports.info(`Result: \u001b[32;1m${result}`);
+    coreExports.info(`Result: \u001b[36;1m${result}`);
     if (inputs.summary) {
         coreExports.info('📝 Writing Job Summary');
         try {
