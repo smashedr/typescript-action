@@ -31243,13 +31243,49 @@ function requireGithub () {
 
 var githubExports = requireGithub();
 
-async function wait(milliseconds) {
-    return new Promise((resolve) => {
-        if (isNaN(milliseconds)) {
-            throw new Error('milliseconds not a number');
+class GitHub {
+    repo;
+    octokit;
+    constructor(token) {
+        this.repo = githubExports.context.repo;
+        this.octokit = githubExports.getOctokit(token);
+    }
+    async getRef(tag) {
+        console.debug(`getRef: tags/${tag}`);
+        try {
+            const result = await this.octokit.rest.git.getRef({
+                ...this.repo,
+                ref: `tags/${tag}`,
+            });
+            return result.data;
         }
-        setTimeout(() => resolve(new Date().toTimeString()), milliseconds);
-    });
+        catch (e) {
+            if (e instanceof RequestError) {
+                if (e.status === 404) {
+                    return;
+                }
+                throw new Error(e.message);
+            }
+            throw new Error('Unknown Error Getting Ref');
+        }
+    }
+    async createRef(tag, sha) {
+        console.debug(`createRef: refs/tags/${tag}`, sha);
+        return this.octokit.rest.git.createRef({
+            ...this.repo,
+            ref: `refs/tags/${tag}`,
+            sha,
+        });
+    }
+    async updateRef(tag, sha, force = false) {
+        console.debug(`updateRef: tags/${tag}`, sha, force);
+        return this.octokit.rest.git.updateRef({
+            ...this.repo,
+            ref: `tags/${tag}`,
+            sha,
+            force,
+        });
+    }
 }
 
 async function main() {
@@ -31257,22 +31293,75 @@ async function main() {
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource';
     coreExports.info(`🏳️ Starting Test Action - ${version}`);
-    const ms = coreExports.getInput('milliseconds', { required: true });
-    coreExports.info(`ms: ${ms}`);
     const __filename = fileURLToPath(import.meta.url);
     coreExports.debug(`__filename: ${__filename}`);
     const __dirname = path.dirname(__filename);
     coreExports.debug(`__dirname: ${__dirname}`);
     const src = path.resolve(__dirname, '../src');
     console.log(`src: ${src}`);
-    const { owner, repo } = githubExports.context.repo;
-    console.log('owner:', owner);
-    console.log('repo:', repo);
-    coreExports.info(new Date().toTimeString());
-    const result = await wait(parseInt(ms, 10));
+    const inputs = {
+        tag: coreExports.getInput('tag'),
+        summary: coreExports.getBooleanInput('summary'),
+        token: coreExports.getInput('token'),
+    };
+    console.log(inputs);
+    const sha = process.env.GITHUB_SHA ?? '';
+    coreExports.info(`Target SHA: \u001b[33;1m${sha}`);
+    if (!sha)
+        return coreExports.setFailed('Unknown GITHUB_SHA');
+    coreExports.info(`Target Tag: \u001b[33;1m${inputs.tag}`);
+    const api = new GitHub(inputs.token);
+    coreExports.startGroup(`Processing tag: "${inputs.tag}"`);
+    let result;
+    const reference = await api.getRef(inputs.tag);
+    if (reference) {
+        coreExports.info(`current sha: ${reference.object.sha}`);
+        if (sha === reference.object.sha) {
+            coreExports.info(`\u001b[36mTag "${inputs.tag}" already points to: ${sha}`);
+            result = 'Not Changed';
+        }
+        else {
+            coreExports.info(`\u001b[35mUpdating tag "${inputs.tag}" to: ${sha}`);
+            await api.updateRef(inputs.tag, sha, true);
+            result = 'Updated';
+        }
+    }
+    else {
+        coreExports.info(`\u001b[33mCreating new tag "${inputs.tag}" to: ${sha}`);
+        await api.createRef(inputs.tag, sha);
+        result = 'Created';
+    }
+    coreExports.endGroup();
     console.log('result:', result);
-    coreExports.setOutput('time', result);
+    if (inputs.summary) {
+        coreExports.info('📝 Writing Job Summary');
+        try {
+            await addSummary(inputs, result, sha);
+        }
+        catch (e) {
+            console.log(e);
+            if (e instanceof Error)
+                coreExports.error(`Error writing Job Summary ${e.message}`);
+        }
+    }
+    coreExports.setOutput('sha', sha);
     coreExports.info(`\u001b[32;1mFinished Success`);
+}
+async function addSummary(inputs, result, sha) {
+    coreExports.summary.addRaw('## JavaScript Action\n');
+    const url = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/releases/tag/${inputs.tag}`;
+    coreExports.summary.addRaw(`${result}: [${inputs.tag}](${url}) :arrow_right: \`${sha}\`\n`);
+    const cleanInputs = Object.fromEntries(Object.entries(inputs).filter(([key]) => key !== 'token'));
+    const yaml = Object.entries(cleanInputs)
+        .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
+        .join('\n');
+    coreExports.summary.addRaw('<details><summary>Inputs</summary>');
+    coreExports.summary.addCodeBlock(yaml, 'yaml');
+    coreExports.summary.addRaw('</details>\n');
+    const text = 'View Documentation, Report Issues or Request Features';
+    const link = 'https://github.com/smashedr/javascript-action';
+    coreExports.summary.addRaw(`\n[${text}](${link}?tab=readme-ov-file#readme)\n\n---`);
+    await coreExports.summary.write();
 }
 try {
     await main();
