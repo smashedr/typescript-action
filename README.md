@@ -54,7 +54,7 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 | token   |  -   | `github.token` | Only for PAT            |
 
 ```yaml
-- name: 'TS Test Action'
+- name: 'TypeScript Action Template'
   uses: smashedr/typescript-action@master
   with:
     tag: test
@@ -68,7 +68,7 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 | sha    | Tag Hash       |
 
 ```yaml
-- name: 'TS Test Action'
+- name: 'TypeScript Action Template'
   id: test
   uses: smashedr/typescript-action@master
   with:

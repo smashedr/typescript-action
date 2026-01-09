@@ -31573,7 +31573,7 @@ async function main() {
     const version = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource';
-    coreExports.info(`🏳️ Starting Test Action - ${version}`);
+    coreExports.info(`🏳️ Starting TypeScript Action Template - ${version}`);
     const __filename = fileURLToPath(import.meta.url);
     coreExports.debug(`__filename: ${__filename}`);
     const __dirname = path.dirname(__filename);

@@ -8,7 +8,7 @@ async function main() {
     const version: string = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource'
-    core.info(`🏳️ Starting Test Action - ${version}`)
+    core.info(`🏳️ Starting TypeScript Action Template - ${version}`)
 
     // // Debug
     // core.startGroup('Debug: github.context')
