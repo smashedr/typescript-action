@@ -31642,7 +31642,7 @@ async function addSummary(inputs, result, sha) {
     coreExports.summary.addCodeBlock(yaml, 'yaml');
     coreExports.summary.addRaw('</details>\n');
     const text = 'View Documentation, Report Issues or Request Features';
-    const link = 'https://github.com/smashedr/javascript-action';
+    const link = 'https://github.com/smashedr/typescript-action';
     coreExports.summary.addRaw(`\n[${text}](${link}?tab=readme-ov-file#readme)\n\n---`);
     await coreExports.summary.write();
 }

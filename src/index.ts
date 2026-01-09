@@ -101,7 +101,7 @@ async function addSummary(inputs: Inputs, result: string, sha: string) {
     core.summary.addRaw('</details>\n')
 
     const text = 'View Documentation, Report Issues or Request Features'
-    const link = 'https://github.com/smashedr/javascript-action'
+    const link = 'https://github.com/smashedr/typescript-action'
     core.summary.addRaw(`\n[${text}](${link}?tab=readme-ov-file#readme)\n\n---`)
     await core.summary.write()
 }
