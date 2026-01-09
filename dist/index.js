@@ -31631,7 +31631,7 @@ async function main() {
     coreExports.info(`\u001b[32;1mFinished Success`);
 }
 async function addSummary(inputs, result, sha) {
-    coreExports.summary.addRaw('## JavaScript Action\n');
+    coreExports.summary.addRaw('## TypeScript Action\n');
     const url = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/releases/tag/${inputs.tag}`;
     coreExports.summary.addRaw(`${result}: [${inputs.tag}](${url}) :arrow_right: \`${sha}\`\n`);
     const cleanInputs = Object.fromEntries(Object.entries(inputs).filter(([key]) => key !== 'token'));

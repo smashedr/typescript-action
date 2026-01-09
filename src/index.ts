@@ -85,7 +85,7 @@ async function main() {
 }
 
 async function addSummary(inputs: Inputs, result: string, sha: string) {
-    core.summary.addRaw('## JavaScript Action\n')
+    core.summary.addRaw('## TypeScript Action\n')
 
     const url = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/releases/tag/${inputs.tag}`
     core.summary.addRaw(`${result}: [${inputs.tag}](${url}) :arrow_right: \`${sha}\`\n`)
