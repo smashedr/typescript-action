@@ -48,11 +48,11 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 
 ## Inputs
 
-| Input   | Req. | Default        | Input&nbsp;Description  |
-| :------ | :--: | :------------- | :---------------------- |
-| tag     |  -   | `test`         | Tag to Create or Update |
-| summary |  -   | `true`         | Add Summary to Job      |
-| token   |  -   | `github.token` | Only for PAT            |
+| Input       | Req. |    Default     | Input&nbsp;Description  |
+| :---------- | :--: | :------------: | :---------------------- |
+| **tag**     |  -   |     `test`     | Tag to Create or Update |
+| **summary** |  -   |     `true`     | Add Summary to Job      |
+| **token**   |  -   | `github.token` | Only for PAT            |
 
 ```yaml
 - name: 'TypeScript Action Template'
@@ -63,10 +63,10 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 
 ## Outputs
 
-| Output | Description    |
-| :----- | :------------- |
-| time   | Resulting Time |
-| sha    | Tag Hash       |
+| Output   | Description    |
+| :------- | :------------- |
+| **time** | Resulting Time |
+| **sha**  | Tag Hash       |
 
 ```yaml
 - name: 'TypeScript Action Template'
