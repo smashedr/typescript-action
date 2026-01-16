@@ -1,14 +1,26 @@
 import * as core from '@actions/core'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { GitHub } from './github.js'
-import { Inputs } from './types.js'
+import { GitHub, RefData } from './github.js'
+
+// Inputs
+const inputs = {
+    tag: core.getInput('tag', { required: true }),
+    summary: core.getBooleanInput('summary'),
+    token: core.getInput('token'),
+} as const
+
+type Inputs = typeof inputs
 
 async function main() {
     const version: string = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource'
     core.info(`🏳️ Starting TypeScript Action Template - ${version}`)
+
+    core.startGroup('Inputs')
+    console.log(inputs)
+    core.endGroup() // Inputs
 
     // // Debug
     // core.startGroup('Debug: github.context')
@@ -26,16 +38,6 @@ async function main() {
     const src = path.resolve(__dirname, '../src')
     core.debug(`src: ${src}`)
 
-    // Inputs
-    const inputs = {
-        tag: core.getInput('tag', { required: true }),
-        summary: core.getBooleanInput('summary'),
-        token: core.getInput('token'),
-    } as Inputs
-    core.startGroup('Inputs')
-    console.log(inputs)
-    core.endGroup() // Inputs
-
     // Variables
     const sha = process.env.GITHUB_SHA ?? ''
     core.info(`SHA: \u001b[35;1m${sha}`)
@@ -46,7 +48,7 @@ async function main() {
     // Processing
     core.startGroup(`Processing tag: "${inputs.tag}"`)
     let result: string
-    const reference = await api.getRef(inputs.tag)
+    const reference: RefData | undefined = await api.getRef(inputs.tag)
     // console.log('reference:', reference)
     if (reference) {
         core.info(`current sha: ${reference.object.sha}`)

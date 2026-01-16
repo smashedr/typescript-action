@@ -2,19 +2,20 @@
 [![GitHub Tag Minor](https://img.shields.io/github/v/tag/smashedr/typescript-action?sort=semver&filter=!v*.*.*&logo=git&logoColor=white&labelColor=585858&label=%20)](https://github.com/smashedr/typescript-action/releases)
 [![GitHub Release Version](https://img.shields.io/github/v/release/smashedr/typescript-action?logo=git&logoColor=white&labelColor=585858&label=%20)](https://github.com/smashedr/typescript-action/releases/latest)
 [![GitHub Dist Size](https://img.shields.io/github/size/smashedr/typescript-action/dist%2Findex.js?logo=bookstack&logoColor=white&label=dist%20size)](https://github.com/smashedr/typescript-action/blob/master/src)
-[![Workflow Release](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/release.yaml?logo=cachet&label=release)](https://github.com/smashedr/typescript-action/actions/workflows/release.yaml)
-[![Workflow Test](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/test.yaml?logo=cachet&label=test)](https://github.com/smashedr/typescript-action/actions/workflows/test.yaml)
-[![Workflow Lint](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/lint.yaml?logo=cachet&label=lint)](https://github.com/smashedr/typescript-action/actions/workflows/lint.yaml)
+[![Workflow Release](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/release.yaml?logo=checkmarx&logoColor=white&label=release)](https://github.com/smashedr/typescript-action/actions/workflows/release.yaml)
+[![Workflow Test](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/test.yaml?logo=checkmarx&logoColor=white&label=test)](https://github.com/smashedr/typescript-action/actions/workflows/test.yaml)
+[![Workflow Lint](https://img.shields.io/github/actions/workflow/status/smashedr/typescript-action/lint.yaml?logo=checkmarx&logoColor=white&label=lint)](https://github.com/smashedr/typescript-action/actions/workflows/lint.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=smashedr_typescript-action&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=smashedr_typescript-action)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/smashedr/typescript-action?logo=github&label=updated)](https://github.com/smashedr/typescript-action/pulse)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/smashedr/typescript-action?logo=github&label=updated)](https://github.com/smashedr/typescript-action)
 [![Codeberg Last Commit](https://img.shields.io/gitea/last-commit/shaner/typescript-action/master?gitea_url=https%3A%2F%2Fcodeberg.org%2F&logo=codeberg&logoColor=white&label=updated)](https://codeberg.org/shaner/typescript-action)
-[![GitHub Contributors](https://img.shields.io/github/contributors-anon/smashedr/typescript-action?logo=github)](https://github.com/smashedr/typescript-action/graphs/contributors)
-[![GitHub Repo Size](https://img.shields.io/github/repo-size/smashedr/typescript-action?logo=bookstack&logoColor=white&label=repo%20size)](https://github.com/smashedr/typescript-action?tab=readme-ov-file#readme)
-[![GitHub Top Language](https://img.shields.io/github/languages/top/smashedr/typescript-action?logo=htmx)](https://github.com/smashedr/typescript-action)
-[![GitHub Discussions](https://img.shields.io/github/discussions/smashedr/typescript-action?logo=github)](https://github.com/smashedr/typescript-action/discussions)
-[![GitHub Forks](https://img.shields.io/github/forks/smashedr/typescript-action?style=flat&logo=github)](https://github.com/smashedr/typescript-action/forks)
-[![GitHub Repo Stars](https://img.shields.io/github/stars/smashedr/typescript-action?style=flat&logo=github)](https://github.com/smashedr/typescript-action/stargazers)
-[![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=github&label=org%20stars)](https://cssnr.github.io/)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/smashedr/typescript-action?logo=buffer&label=repo%20size)](https://github.com/smashedr/typescript-action?tab=readme-ov-file#readme)
+[![GitHub Top Language](https://img.shields.io/github/languages/top/smashedr/typescript-action?logo=devbox)](https://github.com/smashedr/typescript-action?tab=readme-ov-file#readme)
+[![GitHub Contributors](https://img.shields.io/github/contributors-anon/smashedr/typescript-action?logo=southwestairlines)](https://github.com/smashedr/typescript-action/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/smashedr/typescript-action?logo=codeforces&logoColor=white)](https://github.com/smashedr/typescript-action/issues)
+[![GitHub Discussions](https://img.shields.io/github/discussions/smashedr/typescript-action?logo=rocketdotchat&logoColor=white)](https://github.com/smashedr/typescript-action/discussions)
+[![GitHub Forks](https://img.shields.io/github/forks/smashedr/typescript-action?style=flat&logo=forgejo&logoColor=white)](https://github.com/smashedr/typescript-action/forks)
+[![GitHub Repo Stars](https://img.shields.io/github/stars/smashedr/typescript-action?style=flat&logo=gleam&logoColor=white)](https://github.com/smashedr/typescript-action/stargazers)
+[![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=apachespark&logoColor=white&label=org%20stars)](https://cssnr.github.io/)
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-72a5f2?logo=kofi&label=support)](https://ko-fi.com/cssnr)
 
@@ -47,11 +48,11 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 
 ## Inputs
 
-| Input   | Req. | Default        | Input&nbsp;Description  |
-| :------ | :--: | :------------- | :---------------------- |
-| tag     |  -   | `test`         | Tag to Create or Update |
-| summary |  -   | `true`         | Add Summary to Job      |
-| token   |  -   | `github.token` | Only for PAT            |
+| Input       | Req. |    Default     | Input&nbsp;Description  |
+| :---------- | :--: | :------------: | :---------------------- |
+| **tag**     |  -   |     `test`     | Tag to Create or Update |
+| **summary** |  -   |     `true`     | Add Summary to Job      |
+| **token**   |  -   | `github.token` | Only for PAT            |
 
 ```yaml
 - name: 'TypeScript Action Template'
@@ -62,10 +63,10 @@ This includes inputs, outputs, job summary, and automatic token authentication.
 
 ## Outputs
 
-| Output | Description    |
-| :----- | :------------- |
-| time   | Resulting Time |
-| sha    | Tag Hash       |
+| Output   | Description    |
+| :------- | :------------- |
+| **time** | Resulting Time |
+| **sha**  | Tag Hash       |
 
 ```yaml
 - name: 'TypeScript Action Template'
@@ -107,18 +108,17 @@ Breaking changes would result in a **Major** version bump. At a minimum you shou
 
 # Support
 
-For general help or to request a feature, see:
+If you run into any issues or need help getting started, please do one of the following:
 
-- Q&A Discussion: https://github.com/smashedr/typescript-action/discussions/categories/q-a
-- Request a Feature: https://github.com/smashedr/typescript-action/discussions/categories/feature-requests
+- [Report an Issue](https://github.com/smashedr/typescript-action/issues)
+- [Q&A Discussion](https://github.com/smashedr/typescript-action/discussions/categories/q-a)
+- [Request a Feature](https://github.com/smashedr/typescript-action/issues/new?template=1-feature.yaml)
+- [Chat with us on Discord](https://discord.gg/wXy6m2X8wY)
 
-If you are experiencing an issue/bug or getting unexpected results, you can:
-
-- Report an Issue: https://github.com/smashedr/typescript-action/issues
-- Chat with us on Discord: https://discord.gg/wXy6m2X8wY
-- Provide General Feedback: [https://cssnr.github.io/feedback/](https://cssnr.github.io/feedback/?app=Update%20Release%20Notes)
-
-For more information, see the CSSNR [SUPPORT.md](https://github.com/cssnr/.github/blob/master/.github/SUPPORT.md#support).
+[![Features](https://img.shields.io/badge/features-brightgreen?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/smashedr/typescript-action/issues/new?template=1-feature.yaml)
+[![Issues](https://img.shields.io/badge/issues-red?style=for-the-badge&logo=southwestairlines&logoColor=white)](https://github.com/smashedr/typescript-action/issues)
+[![Discussions](https://img.shields.io/badge/discussions-blue?style=for-the-badge&logo=livechat&logoColor=white)](https://github.com/smashedr/typescript-action/discussions)
+[![Discord](https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/wXy6m2X8wY)
 
 # Contributing
 
@@ -140,6 +140,7 @@ Additionally, you can support other [GitHub Actions](https://actions.cssnr.com/)
 - [Rhysd Actionlint Action](https://github.com/cssnr/actionlint-action?tab=readme-ov-file#readme)
 - [Zensical Action](https://github.com/cssnr/zensical-action?tab=readme-ov-file#readme)
 - [VirusTotal Action](https://github.com/cssnr/virustotal-action?tab=readme-ov-file#readme)
+- [Homebrew Action](https://github.com/cssnr/homebrew-action?tab=readme-ov-file#readme)
 - [Mirror Repository Action](https://github.com/cssnr/mirror-repository-action?tab=readme-ov-file#readme)
 - [Update Version Tags Action](https://github.com/cssnr/update-version-tags-action?tab=readme-ov-file#readme)
 - [Docker Tags Action](https://github.com/cssnr/docker-tags-action?tab=readme-ov-file#readme)
@@ -153,6 +154,7 @@ Additionally, you can support other [GitHub Actions](https://actions.cssnr.com/)
 - [NPM Outdated Check Action](https://github.com/cssnr/npm-outdated-action?tab=readme-ov-file#readme)
 - [Label Creator Action](https://github.com/cssnr/label-creator-action?tab=readme-ov-file#readme)
 - [Algolia Crawler Action](https://github.com/cssnr/algolia-crawler-action?tab=readme-ov-file#readme)
+- [Create Pull Action](https://github.com/cssnr/create-pull-action?tab=readme-ov-file#readme)
 - [Upload Release Action](https://github.com/cssnr/upload-release-action?tab=readme-ov-file#readme)
 - [Check Build Action](https://github.com/cssnr/check-build-action?tab=readme-ov-file#readme)
 - [Web Request Action](https://github.com/cssnr/web-request-action?tab=readme-ov-file#readme)
@@ -164,7 +166,6 @@ These actions are not published on the Marketplace, but may be useful.
 
 - [cssnr/create-files-action](https://github.com/cssnr/create-files-action?tab=readme-ov-file#readme) - Create various files from templates.
 - [cssnr/draft-release-action](https://github.com/cssnr/draft-release-action?tab=readme-ov-file#readme) - Keep a draft release ready to publish.
-- [cssnr/homebrew-action](https://github.com/cssnr/homebrew-action?tab=readme-ov-file#readme) - Homebrew formula update action.
 - [cssnr/env-json-action](https://github.com/cssnr/env-json-action?tab=readme-ov-file#readme) - Convert env file to json or vice versa.
 - [cssnr/push-artifacts-action](https://github.com/cssnr/push-artifacts-action?tab=readme-ov-file#readme) - Sync files to a remote host with rsync.
 - [smashedr/update-release-notes-action](https://github.com/smashedr/update-release-notes-action?tab=readme-ov-file#readme) - Update release notes.

@@ -31569,25 +31569,25 @@ class GitHub {
     }
 }
 
+const inputs = {
+    tag: coreExports.getInput('tag', { required: true }),
+    summary: coreExports.getBooleanInput('summary'),
+    token: coreExports.getInput('token'),
+};
 async function main() {
     const version = process.env.GITHUB_ACTION_REF
         ? `\u001b[35;1m${process.env.GITHUB_ACTION_REF}`
         : '\u001b[33;1mSource';
     coreExports.info(`🏳️ Starting TypeScript Action Template - ${version}`);
+    coreExports.startGroup('Inputs');
+    console.log(inputs);
+    coreExports.endGroup();
     const __filename = fileURLToPath(import.meta.url);
     coreExports.debug(`__filename: ${__filename}`);
     const __dirname = path.dirname(__filename);
     coreExports.debug(`__dirname: ${__dirname}`);
     const src = path.resolve(__dirname, '../src');
     coreExports.debug(`src: ${src}`);
-    const inputs = {
-        tag: coreExports.getInput('tag', { required: true }),
-        summary: coreExports.getBooleanInput('summary'),
-        token: coreExports.getInput('token'),
-    };
-    coreExports.startGroup('Inputs');
-    console.log(inputs);
-    coreExports.endGroup();
     const sha = process.env.GITHUB_SHA ?? '';
     coreExports.info(`SHA: \u001b[35;1m${sha}`);
     if (!sha)
