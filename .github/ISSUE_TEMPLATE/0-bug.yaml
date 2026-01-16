@@ -10,6 +10,14 @@ body:
       value: |
         All issues will be responded too.
 
+  - type: input
+    id: website
+    validations:
+      required: false
+    attributes:
+      label: URL
+      description: Please provide a link to the repository or workflow in question if possible.
+
   - type: textarea
     id: description
     validations:
