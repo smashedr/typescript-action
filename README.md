@@ -28,6 +28,7 @@
 - [Inputs](#Inputs)
   - [Permissions](#Permissions)
 - [Outputs](#Outputs)
+- [Examples](#Examples)
 - [Tags](#Tags)
 - [Support](#Support)
 - [Contributing](#Contributing)
@@ -61,12 +62,22 @@ This includes inputs, outputs, job summary, and automatic token authentication.
     tag: test
 ```
 
+### Permissions
+
+This action requires the following permissions:
+
+```yaml
+permissions:
+  contents: write
+```
+
+Permissions documentation for [Workflows](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token) and [Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication).
+
 ## Outputs
 
-| Output   | Description    |
-| :------- | :------------- |
-| **time** | Resulting Time |
-| **sha**  | Tag Hash       |
+| Output  | Description |
+| :------ | :---------- |
+| **sha** | Tag Hash    |
 
 ```yaml
 - name: 'TypeScript Action Template'
@@ -80,16 +91,40 @@ This includes inputs, outputs, job summary, and automatic token authentication.
     echo "sha: '${{ steps.test.outputs.sha }}'"
 ```
 
-### Permissions
+## Examples
 
-This action requires the following permissions:
+💡 _Click on an example heading to expand or collapse the example._
 
 ```yaml
-permissions:
-  contents: write
+name: 'Test'
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  test:
+    name: 'Test'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v6
+
+      - name: 'TypeScript Action'
+        id: test
+        uses: smashedr/typescript-action@master
+
+      - name: 'Echo Outputs'
+        run: |
+          echo "sha: '${{ steps.test.outputs.sha }}'"
 ```
 
-Permissions documentation for [Workflows](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token) and [Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication).
+For more examples, you can check out other projects using this action:  
+https://github.com/smashedr/typescript-action/network/dependents
 
 ## Tags
 
