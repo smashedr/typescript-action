@@ -1,7 +1,10 @@
 import * as github from '@actions/github'
 import { RequestError } from '@octokit/request-error'
+import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types.js'
 
 type Octokit = ReturnType<typeof github.getOctokit>
+
+export type RefData = RestEndpointMethodTypes['git']['getRef']['response']['data']
 
 export class GitHub {
     private readonly repo: { owner: string; repo: string }
@@ -12,7 +15,7 @@ export class GitHub {
         this.octokit = github.getOctokit(token)
     }
 
-    async getRef(tag: string) {
+    async getRef(tag: string): Promise<RefData | undefined> {
         console.log(`getRef: tags/${tag}`)
         try {
             const result = await this.octokit.rest.git.getRef({
