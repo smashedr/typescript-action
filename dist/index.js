@@ -33439,9 +33439,9 @@ class GitHub {
                 if (e.status === 404) {
                     return;
                 }
-                throw new Error(e.message);
+                throw e;
             }
-            throw new Error('Unknown Error Getting Ref');
+            throw new Error('Unknown Error Getting Ref', { cause: e });
         }
     }
     async createRef(tag, sha) {
