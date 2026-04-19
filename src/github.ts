@@ -1,6 +1,6 @@
 import * as github from '@actions/github'
 import { RequestError } from '@octokit/request-error'
-import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types.js'
+import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods'
 
 type Octokit = ReturnType<typeof github.getOctokit>
 
