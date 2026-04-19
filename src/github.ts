@@ -1,6 +1,6 @@
 import * as github from '@actions/github'
 import { RequestError } from '@octokit/request-error'
-import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types.js'
+import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods'
 
 type Octokit = ReturnType<typeof github.getOctokit>
 
@@ -28,9 +28,9 @@ export class GitHub {
                 if (e.status === 404) {
                     return
                 }
-                throw new Error(e.message)
+                throw e
             }
-            throw new Error('Unknown Error Getting Ref')
+            throw new Error('Unknown Error Getting Ref', { cause: e })
         }
     }
 

@@ -93,7 +93,7 @@ async function addSummary(inputs: Inputs, result: string, sha: string) {
     core.summary.addRaw(`${result}: [${inputs.tag}](${url}) :arrow_right: \`${sha}\`\n`)
 
     const cleanInputs = Object.fromEntries(
-        Object.entries(inputs).filter(([key]) => key !== 'token')
+        Object.entries(inputs).filter(([key]) => key !== 'token'),
     )
     const yaml = Object.entries(cleanInputs)
         .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
