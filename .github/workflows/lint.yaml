@@ -59,7 +59,7 @@ jobs:
 
       - name: "actionlint"
         if: ${{ !cancelled() }}
-        uses: cssnr/actionlint-action@updates
+        uses: cssnr/actionlint-action@v1
 
       - name: "action.yml"
         if: ${{ !cancelled() }}
